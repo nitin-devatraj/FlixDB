@@ -1,25 +1,28 @@
-import React from "react";
-import "./App.css";
+import React, { useState } from "react";
 import MoviesList from "./components/MoviesList";
-import "./App.css";
-import Icon from "./assets/icon.png";
 import Button from "./components/Button";
+import Icon from "./assets/icon.png";
+import "./App.css";
 
 function App() {
-  const dummyMovies = [
-    {
-      id: 1,
-      title: "Some Dummy Movie",
-      openingText: "This is the opening text of the movie",
-      releaseDate: "2021-05-18",
-    },
-    {
-      id: 2,
-      title: "Some Dummy Movie 2",
-      openingText: "This is the second opening text of the movie",
-      releaseDate: "2021-05-19",
-    },
-  ];
+  const [movies, setMovies] = useState([]);
+  function fetchMoviesHandler() {
+    fetch("https://swapi.dev/api/films")
+      .then((response) => response.json())
+      .then((result) => {
+        const transformedMovies = result.results.map((movie) => {
+          return {
+            id: movie.episode_id,
+            title: movie.title,
+            openingText: movie.opening_crawl,
+            releaseDate: movie.release_date,
+            director: movie.director,
+          };
+        });
+
+        setMovies(transformedMovies);
+      });
+  }
 
   return (
     <React.Fragment>
@@ -27,10 +30,10 @@ function App() {
         <div>
           <img src={Icon} height="70" alt="#" /> <h1>FlixDB</h1>
         </div>
-        <Button>Fetch Movies</Button>
+        <Button onClick={fetchMoviesHandler}>Fetch Movies</Button>
       </section>
-      <section>
-        <MoviesList movies={dummyMovies} />
+      <section className="main">
+        <MoviesList movies={movies} />
       </section>
     </React.Fragment>
   );

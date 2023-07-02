@@ -5,6 +5,7 @@ const Button = (props) => {
   const [isSwiggling, setIsSwiggling] = useState(false);
 
   const handleClick = () => {
+    props.onClick();
     setIsSwiggling(true);
 
     let timerID = setTimeout(() => {
