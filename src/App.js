@@ -3,6 +3,7 @@ import "./App.css";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 import Icon from "./assets/icon.png";
+import Button from "./components/Button";
 
 function App() {
   const dummyMovies = [
@@ -26,7 +27,7 @@ function App() {
         <div>
           <img src={Icon} height="70" alt="#" /> <h1>FlixDB</h1>
         </div>
-        <button>Fetch Movies</button>
+        <Button>Fetch Movies</Button>
       </section>
       <section>
         <MoviesList movies={dummyMovies} />

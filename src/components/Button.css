@@ -1,0 +1,32 @@
+.swiggle-button {
+  font: inherit;
+  cursor: pointer;
+  background: white;
+  border: 1px solid white;
+  padding: 0.75rem 2rem;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.swiggling {
+  animation: swiggleAnimation 0.2s ease;
+}
+
+.swiggle-button:focus {
+  outline: none;
+}
+
+@keyframes swiggleAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
