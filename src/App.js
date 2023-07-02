@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import MoviesList from "./components/MoviesList";
 import Button from "./components/Button";
+import HeroText from "./components/HeroText";
 import Icon from "./assets/icon.png";
 import "./App.css";
 
 function App() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState();
   function fetchMoviesHandler() {
     fetch("https://swapi.dev/api/films")
       .then((response) => response.json())
@@ -33,7 +34,7 @@ function App() {
         <Button onClick={fetchMoviesHandler}>Fetch Movies</Button>
       </section>
       <section className="main">
-        <MoviesList movies={movies} />
+        {movies ? <MoviesList movies={movies} /> : <HeroText />}
       </section>
     </React.Fragment>
   );

@@ -1,0 +1,20 @@
+.hero-container {
+  background-color: #a79ad5;
+  color: #fff;
+  padding: 50px;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-cta {
+  font-size: 1.2rem;
+}
