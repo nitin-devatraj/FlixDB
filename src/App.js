@@ -4,6 +4,7 @@ import Button from "./components/Button";
 import HeroText from "./components/HeroText";
 import Spinner from "./components/Spinner";
 import ErrorText from "./components/ErrorText";
+import AddMovie from "./components/AddMovie";
 import Icon from "./assets/icon.png";
 import "./App.css";
 
@@ -11,6 +12,7 @@ function App() {
   const [movies, setMovies] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   async function fetchMoviesHandler() {
     setIsLoading(true);
@@ -37,18 +39,31 @@ function App() {
     setIsLoading(false);
   }
 
+  function addMovieHandler(movie) {
+    setShowForm(false);
+    console.log(movie);
+  }
+
+  function showFormHandler() {
+    setShowForm(true);
+  }
+
   return (
     <React.Fragment>
       <section className="header">
         <div>
           <img src={Icon} height="70" alt="#" /> <h1>FlixDB</h1>
         </div>
+        <button onClick={showFormHandler} className="button">
+          Add Movies
+        </button>
         <Button onClick={fetchMoviesHandler}>Fetch Movies</Button>
       </section>
       <section className="main">
         {isLoading && <Spinner />}
         {movies && <MoviesList movies={movies} />}
         {!movies && !isLoading && !error && <HeroText />}
+        {showForm && <AddMovie onAddMovie={addMovieHandler} />}
         {!isLoading && error && <ErrorText message={error} />}
       </section>
     </React.Fragment>
