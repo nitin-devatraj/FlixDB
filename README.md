@@ -1,3 +1,7 @@
+# FlixDB
+FlixDB is a simple movie database where a user can add movies and also fetch those movies. this app store the movies on a realtime-database hosted on firebase.
+this project is built using react, css modules, firebase for database & api endpoints. this project was built primarily to practise working with & performing http requests of different kinds like GET, POST, etc.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
