@@ -15,3 +15,8 @@
   margin: 0;
   font-size: 1rem;
 }
+
+.movie p {
+  margin: 1rem 2rem;
+  text-align: justify;
+}

@@ -41,6 +41,9 @@ function AddMovie(props) {
         <input type="text" id="director" ref={directorRef} />
       </div>
       <button className={classes.btn}>Add Movie</button>
+      <button className={classes.btn} onClick={props.onCancel}>
+        Cancel
+      </button>
     </form>
   );
 }

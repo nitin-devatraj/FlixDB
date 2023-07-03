@@ -23,7 +23,7 @@
 .control input:focus,
 .control textarea:focus {
   outline: none;
-  border-color: #1e183a;
+  border-color: #40337a;
 }
 
 .btn {
@@ -33,10 +33,11 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  margin: 4px 8px;
   transition: background-color 0.2s ease;
 }
 
 .btn:hover {
-  background-color: #1e183a;
+  background-color: #40337a;
   color: white;
 }

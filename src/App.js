@@ -18,34 +18,51 @@ function App() {
     setIsLoading(true);
     setError(false);
     try {
-      const response = await fetch("https://swapi.dev/api/film");
+      const response = await fetch(
+        "https://flixdb-95f8d-default-rtdb.europe-west1.firebasedatabase.app/movies.json"
+      );
       if (!response.ok) {
         throw new Error("something went wrong");
       }
       const result = await response.json();
-      const transformedMovies = result.results.map((movie) => {
-        return {
-          id: movie.episode_id,
-          title: movie.title,
-          openingText: movie.opening_crawl,
-          releaseDate: movie.release_date,
-          director: movie.director,
-        };
-      });
-      setMovies(transformedMovies);
+
+      const loadedMovies = [];
+      for (const key in result) {
+        loadedMovies.push({
+          id: key,
+          ...result[key],
+        });
+      }
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
   }
 
-  function addMovieHandler(movie) {
+  async function addMovieHandler(movie) {
     setShowForm(false);
-    console.log(movie);
+    const response = await fetch(
+      "https://flixdb-95f8d-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
   }
 
   function showFormHandler() {
+    setMovies(false);
     setShowForm(true);
+  }
+
+  function hideFormHandler() {
+    setShowForm(false);
   }
 
   return (
@@ -54,17 +71,21 @@ function App() {
         <div>
           <img src={Icon} height="70" alt="#" /> <h1>FlixDB</h1>
         </div>
-        <button onClick={showFormHandler} className="button">
-          Add Movies
-        </button>
-        <Button onClick={fetchMoviesHandler}>Fetch Movies</Button>
+        <div>
+          <button onClick={showFormHandler} className="button">
+            Add Movies
+          </button>
+          <Button onClick={fetchMoviesHandler}>Fetch Movies</Button>
+        </div>
       </section>
       <section className="main">
         {isLoading && <Spinner />}
         {movies && <MoviesList movies={movies} />}
         {!movies && !isLoading && !error && <HeroText />}
-        {showForm && <AddMovie onAddMovie={addMovieHandler} />}
-        {!isLoading && error && <ErrorText message={error} />}
+        {showForm && (
+          <AddMovie onAddMovie={addMovieHandler} onCancel={hideFormHandler} />
+        )}
+        {!isLoading && !showForm && error && <ErrorText message={error} />}
       </section>
     </React.Fragment>
   );

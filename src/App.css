@@ -33,8 +33,21 @@ section {
   border: 1px solid white;
   padding: 0.75rem 2rem;
   border-radius: 10px;
+  margin: 7px 10px;
 }
 
 .button:focus {
   outline: none;
+}
+
+.button:hover {
+  background-color: #40337a;
+  color: white;
+  border-color: #40337a;
+}
+
+@media screen and (max-width: 690px) {
+  .header {
+    flex-direction: column;
+  }
 }
