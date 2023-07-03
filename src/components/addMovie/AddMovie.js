@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import classes from "./AddMovie.module.css";
 
 function AddMovie(props) {
+  const [isFormValid, setIsFormValid] = useState(true);
   const titleRef = useRef("");
   const openingTextRef = useRef("");
   const releaseDateRef = useRef("");
@@ -10,7 +11,17 @@ function AddMovie(props) {
   function submitHandler(event) {
     event.preventDefault();
 
-    // could add validation here...
+    if (
+      !(
+        titleRef.current.value ??
+        openingTextRef.current.value ??
+        releaseDateRef.current.value ??
+        directorRef.current.value
+      )
+    ) {
+      setIsFormValid(false);
+      return;
+    }
 
     const movie = {
       title: titleRef.current.value,
@@ -24,6 +35,9 @@ function AddMovie(props) {
 
   return (
     <form onSubmit={submitHandler}>
+      <div className={classes.control}>
+        {!isFormValid && <p>Please enter valid data</p>}
+      </div>
       <div className={classes.control}>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" ref={titleRef} />

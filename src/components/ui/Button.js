@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Button.css";
+import classes from "./Button.module.css";
 
 const Button = (props) => {
   const [isSwiggling, setIsSwiggling] = useState(false);
@@ -19,7 +19,9 @@ const Button = (props) => {
 
   return (
     <button
-      className={`swiggle-button ${isSwiggling && "swiggling"}`}
+      className={`${classes["swiggle-button"]} ${
+        isSwiggling && classes["swiggling"]
+      }`}
       onClick={handleClick}
     >
       {props.children}

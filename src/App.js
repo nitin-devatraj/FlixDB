@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import MoviesList from "./components/MoviesList";
-import Button from "./components/Button";
-import HeroText from "./components/HeroText";
-import Spinner from "./components/Spinner";
-import ErrorText from "./components/ErrorText";
-import AddMovie from "./components/AddMovie";
+import MoviesList from "./components/movies/MoviesList";
+import Button from "./components/ui/Button";
+import HeroText from "./components/ui/HeroText";
+import Spinner from "./components/ui/Spinner";
+import ErrorText from "./components/ui/ErrorText";
+import AddMovie from "./components/addMovie/AddMovie";
 import Icon from "./assets/icon.png";
-import "./App.css";
+import classes from "./App.module.css";
 
 function App() {
   const [movies, setMovies] = useState();
@@ -17,6 +17,7 @@ function App() {
   async function fetchMoviesHandler() {
     setIsLoading(true);
     setError(false);
+    setShowForm(false);
     try {
       const response = await fetch(
         "https://flixdb-95f8d-default-rtdb.europe-west1.firebasedatabase.app/movies.json"
@@ -42,6 +43,7 @@ function App() {
 
   async function addMovieHandler(movie) {
     setShowForm(false);
+    setIsLoading(true);
     const response = await fetch(
       "https://flixdb-95f8d-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
       {
@@ -54,6 +56,7 @@ function App() {
     );
     const data = await response.json();
     console.log(data);
+    setIsLoading(false);
   }
 
   function showFormHandler() {
@@ -67,18 +70,18 @@ function App() {
 
   return (
     <React.Fragment>
-      <section className="header">
+      <section className={classes.header}>
         <div>
-          <img src={Icon} height="70" alt="#" /> <h1>FlixDB</h1>
+          <img src={Icon} height="70" alt="#" /> <a href="/">FlixDB</a>
         </div>
         <div>
-          <button onClick={showFormHandler} className="button">
+          <button onClick={showFormHandler} className={classes.button}>
             Add Movies
           </button>
           <Button onClick={fetchMoviesHandler}>Fetch Movies</Button>
         </div>
       </section>
-      <section className="main">
+      <section className={classes.main}>
         {isLoading && <Spinner />}
         {movies && <MoviesList movies={movies} />}
         {!movies && !isLoading && !error && <HeroText />}
