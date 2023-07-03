@@ -3,27 +3,37 @@ import MoviesList from "./components/MoviesList";
 import Button from "./components/Button";
 import HeroText from "./components/HeroText";
 import Spinner from "./components/Spinner";
+import ErrorText from "./components/ErrorText";
 import Icon from "./assets/icon.png";
 import "./App.css";
 
 function App() {
   const [movies, setMovies] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   async function fetchMoviesHandler() {
     setIsLoading(true);
-    const response = await fetch("https://swapi.dev/api/films");
-    const result = await response.json();
-    const transformedMovies = result.results.map((movie) => {
-      return {
-        id: movie.episode_id,
-        title: movie.title,
-        openingText: movie.opening_crawl,
-        releaseDate: movie.release_date,
-        director: movie.director,
-      };
-    });
-    setMovies(transformedMovies);
+    setError(false);
+    try {
+      const response = await fetch("https://swapi.dev/api/film");
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+      const result = await response.json();
+      const transformedMovies = result.results.map((movie) => {
+        return {
+          id: movie.episode_id,
+          title: movie.title,
+          openingText: movie.opening_crawl,
+          releaseDate: movie.release_date,
+          director: movie.director,
+        };
+      });
+      setMovies(transformedMovies);
+    } catch (error) {
+      setError(error.message);
+    }
     setIsLoading(false);
   }
 
@@ -38,7 +48,8 @@ function App() {
       <section className="main">
         {isLoading && <Spinner />}
         {movies && <MoviesList movies={movies} />}
-        {!movies && !isLoading && <HeroText />}
+        {!movies && !isLoading && !error && <HeroText />}
+        {!isLoading && error && <ErrorText message={error} />}
       </section>
     </React.Fragment>
   );
