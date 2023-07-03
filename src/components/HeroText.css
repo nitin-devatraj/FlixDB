@@ -18,3 +18,15 @@
 .hero-cta {
   font-size: 1.2rem;
 }
+
+.hero-cta span {
+  display: inline-block;
+  color: initial;
+  background: white;
+  border: 1px solid white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 5px;
+  margin: 5px 7px;
+  font-size: 1rem;
+  text-align: center;
+}

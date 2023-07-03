@@ -1,18 +1,22 @@
+import React from "react";
 import "./HeroText.css";
 
 const HeroText = () => {
   return (
     <div className="hero-container">
-      <h1 className="hero-title">Welcome to a Galaxy Far, Far Away!</h1>
+      <h1 className="hero-title">Lights, Camera, FlixDB!</h1>
       <p className="hero-description">
-        Prepare for an epic cinematic journey through the Star Wars universe.
+        Welcome to the FlixDB, where your film collection comes to life.
       </p>
       <p className="hero-description">
-        Get ready to dive into a galaxy filled with iconic characters, epic
-        battles, and thrilling adventures.
+        Submit your favorite movies and share them with the world!
+      </p>
+      <p className="hero-description">
+        Build your personalized movie database and discover new favorites.
       </p>
       <p className="hero-cta">
-        Click the button above to discover the legendary Star Wars movies.
+        Click on <span>Add Movies</span> to add new Movies to FlixDB or{" "}
+        <span>Fetch Movies</span> to explore your movie collection on FlixDB.
       </p>
     </div>
   );
